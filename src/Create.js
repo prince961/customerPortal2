@@ -165,12 +165,29 @@ const Create = () => {
      jsonObjectForServer.pickup_location = pickup_location;
      console.log(JSON.stringify(jsonObjectForServer));
 
+     let headers = new Headers();
+
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', 'Basic ' + btoa("Mohit:Same" ));
+      console.log(headers.get('Authorization'));
+
+
+
      fetch('http://api.apilogistics.in:4000/api/orders', {
       method: 'POST',
-      headers: { "Content-Type": "application/json" ,
-        "Authorizaion":"Basic Um9oaXQ6U2FtZQ=="},
-      body: JSON.stringify(jsonObjectForServer)
-    })
+      headers: headers,
+      body: JSON.stringify(jsonObjectForServer),
+      
+      
+    }).then(async response => {
+      try {
+       const data = await response.text();
+       console.log('response data?', data);
+     } catch(error) {
+       console.log('Error happened here!')
+       console.error(error)
+     }
+    });
 
     //"{\"shipments\":[{\"add\":\"M25,NelsonMarg\",\"address_type\":\"home\",\"phone\":1234567890,\"payment_mode\":\"Prepaid\/COD\/Pickup\/REPL\",\"name\":\"name-of-the-consignee\",\"pin\":325007,\"order\":\"orderid\",\"consignee_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"integrated_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"ewbn\":\"if ewbn is there no need to send additional keys for generating ewaybill only if the total package amount is greater than or equal to 50k\",\"consignee_gst_tin\":\"consignee_gst_tin\",\"seller_gst_tin\":\"seller_gst_tin\",\"client_gst_tin\":\"client_gst_tin\",\"hsn_code\":\"Required for ewaybill-hsn_code\",\"gst_cess_amount\":\"for ewaybill-gst_cess_amount\",\"client\":\"client-name-as-registered-with-delhivery\",\"tax_value\":\"taxvalue\",\"seller_tin\":\"sellertin\",\"seller_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"seller_inv\":\"sellerinv\",\"city\":\"Kota\",\"commodity_value\":\"commodityvalue\",\"weight\":\"1000\",\"return_state\":\"returnstate\",\"document_number\":\"for ewaybill-document_number,only mandatory in case of ewbn\",\"od_distance\":\"ditance between origin and destination\",\"sales_tax_form_ack_no\":\"ackno.\",\"document_type\":\"for ewaybill-document_type,only mandatory in case of ewbn\",\"seller_cst\":\"sellercst\",\"seller_name\":\"sellername\",\"fragile_shipment\":\"true\",\"return_city\":\"returncity\",\"return_phone\":\"returnphone\",\"qc\":{\"item\":[{\"images\":\"img1-static image url\",\"color\":\"Color of the product\",\"reason\":\"Damaged Product\/Return reason of the product\",\"descr\":\"description of the product\",\"ean\":\"EAN no. that needs to be checked for a product (apparels)\",\"imei\":\"IMEI no. that needs to be checked for a product (mobile phones)\",\"brand\":\"Brand of the product\",\"pcat\":\"Product category like mobile, apparels etc.\",\"si\":\"special instruction for FE\"}]},\"shipment_height\":10,\"shipment_width\":11,\"shipment_length\":12,\"category_of_goods\":\"categoryofgoods\",\"cod_amount\":2125,\"return_country\":\"returncountry\",\"document_date\":\"for ewaybill-datetime,mandatory in case of ewbn\",\"taxable_amount\":\"for ewaybill-taxable_amount in case of multiple items only\",\"products_desc\":\"for ewaybill-mandatory,incase of intra-state required only\",\"state\":\"Rajasthan\",\"dangerous_good\":\"True\/False\",\"waybill\":\"waybillno.(trackingid)\",\"consignee_tin\":\"consigneetin\",\"order_date\":\"2017-05-20 12:00:00\",\"return_add\":\"returnaddress\",\"total_amount\":21840,\"seller_add\":\"selleradd\",\"country\":\"India\",\"return_pin\":\"returnpin\",\"extra_parameters\":{\"return_reason\":\"string\"},\"return_name\":\"name\",\"supply_sub_type\":\"for ewaybill-supply_sub_type,mandatory in case of ewbn\",\"plastic_packaging\":\"true\/false\",\"quantity\":\"quantity\"}],\"pickup_location\":{\"name\":\"client-warehouse-name-as-registered-with-delhivery\",\"city\":\"city\",\"pin\":\"pin-code\",\"country\":\"country\",\"phone\":\"phoneno.\",\"add\":\"+}}"
   }
