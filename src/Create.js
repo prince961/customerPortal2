@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import useFetch from "./useFetch";
 import GetPincodeDetails from "./GetPincodeDetails";
+import {useDropzone} from 'react-dropzone'
 
 
 
@@ -191,9 +192,6 @@ const Create = () => {
 
     //"{\"shipments\":[{\"add\":\"M25,NelsonMarg\",\"address_type\":\"home\",\"phone\":1234567890,\"payment_mode\":\"Prepaid\/COD\/Pickup\/REPL\",\"name\":\"name-of-the-consignee\",\"pin\":325007,\"order\":\"orderid\",\"consignee_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"integrated_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"ewbn\":\"if ewbn is there no need to send additional keys for generating ewaybill only if the total package amount is greater than or equal to 50k\",\"consignee_gst_tin\":\"consignee_gst_tin\",\"seller_gst_tin\":\"seller_gst_tin\",\"client_gst_tin\":\"client_gst_tin\",\"hsn_code\":\"Required for ewaybill-hsn_code\",\"gst_cess_amount\":\"for ewaybill-gst_cess_amount\",\"client\":\"client-name-as-registered-with-delhivery\",\"tax_value\":\"taxvalue\",\"seller_tin\":\"sellertin\",\"seller_gst_amount\":\"for ewaybill-incase of intra-state required only\",\"seller_inv\":\"sellerinv\",\"city\":\"Kota\",\"commodity_value\":\"commodityvalue\",\"weight\":\"1000\",\"return_state\":\"returnstate\",\"document_number\":\"for ewaybill-document_number,only mandatory in case of ewbn\",\"od_distance\":\"ditance between origin and destination\",\"sales_tax_form_ack_no\":\"ackno.\",\"document_type\":\"for ewaybill-document_type,only mandatory in case of ewbn\",\"seller_cst\":\"sellercst\",\"seller_name\":\"sellername\",\"fragile_shipment\":\"true\",\"return_city\":\"returncity\",\"return_phone\":\"returnphone\",\"qc\":{\"item\":[{\"images\":\"img1-static image url\",\"color\":\"Color of the product\",\"reason\":\"Damaged Product\/Return reason of the product\",\"descr\":\"description of the product\",\"ean\":\"EAN no. that needs to be checked for a product (apparels)\",\"imei\":\"IMEI no. that needs to be checked for a product (mobile phones)\",\"brand\":\"Brand of the product\",\"pcat\":\"Product category like mobile, apparels etc.\",\"si\":\"special instruction for FE\"}]},\"shipment_height\":10,\"shipment_width\":11,\"shipment_length\":12,\"category_of_goods\":\"categoryofgoods\",\"cod_amount\":2125,\"return_country\":\"returncountry\",\"document_date\":\"for ewaybill-datetime,mandatory in case of ewbn\",\"taxable_amount\":\"for ewaybill-taxable_amount in case of multiple items only\",\"products_desc\":\"for ewaybill-mandatory,incase of intra-state required only\",\"state\":\"Rajasthan\",\"dangerous_good\":\"True\/False\",\"waybill\":\"waybillno.(trackingid)\",\"consignee_tin\":\"consigneetin\",\"order_date\":\"2017-05-20 12:00:00\",\"return_add\":\"returnaddress\",\"total_amount\":21840,\"seller_add\":\"selleradd\",\"country\":\"India\",\"return_pin\":\"returnpin\",\"extra_parameters\":{\"return_reason\":\"string\"},\"return_name\":\"name\",\"supply_sub_type\":\"for ewaybill-supply_sub_type,mandatory in case of ewbn\",\"plastic_packaging\":\"true\/false\",\"quantity\":\"quantity\"}],\"pickup_location\":{\"name\":\"client-warehouse-name-as-registered-with-delhivery\",\"city\":\"city\",\"pin\":\"pin-code\",\"country\":\"country\",\"phone\":\"phoneno.\",\"add\":\"+}}"
   }
-  //convertFormToJson();
-  
-
 
   const handleConsigneePincode = (event) => {
     console.log(event.target.value)
@@ -288,6 +286,25 @@ const Create = () => {
 
     
   }
+
+  function MyDropzone() {
+    const onDrop = useCallback(acceptedFiles => {
+      // Do something with the files
+    }, [])
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  
+    return (
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        {
+          isDragActive ?
+            <p>Drop the files here ...</p> :
+            <p>Drag 'n' drop some files here, or click to select files</p>
+        }
+      </div>
+    )
+  }
+  
   /*
   const { error, isPending, data } = useFetch('http://localhost:9000/pincode/'+122002);
     var cityFromPincode = data.CITY;
@@ -301,6 +318,10 @@ const Create = () => {
     <div className="create">
       <h2>Book a new shipment</h2>
       <form onSubmit={handleSubmit}>
+
+      
+
+
         <label>Blog title:</label>
         <input
           type="text"

@@ -5,6 +5,7 @@ import Create from './Create';
 import BlogDetails from './BlogDetails';
 import NotFound from './NotFound';
 import Sidebar from './Sidebar';
+import UploadCsv from './UploadCsv';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route path="/create">
               <Create />
+            </Route>
+            <Route path="/UploadCsv">
+              <UploadCsv />
             </Route>
             <Route path="/blogs/:id">
               <BlogDetails />
