@@ -6,16 +6,21 @@ const Navbar = () => {
       <h1>The Dojo Blog</h1>
       <div className="links">
         <Link to="/">Home</Link>
-        <Link to="/create" style={{
-          color: 'white',
-          backgroundColor: '#f1356d',
-          borderRadius: '8px'
-        }}>New Blog</Link>
+        <Link
+          to="/create"
+          style={{
+            color: "white",
+            backgroundColor: "#f1356d",
+            borderRadius: "8px",
+          }}
+        >
+          New Blog
+        </Link>
 
-        <Link to="/UploadCsv">upload Excel</Link>
+        <Link to="/UploadCsv">Upload Excel</Link>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
