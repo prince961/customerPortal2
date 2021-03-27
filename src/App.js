@@ -1,10 +1,10 @@
-import Navbar from "./shared/Navigation/Navbar";
+import Navbar from "./shared/components/Navigation/Navbar";
 import Home from "./Home/pages/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Create from "./Blog/pages/Create";
 import BlogDetails from "./Blog/pages/BlogDetails";
 import NotFound from "./shared/components/NotFound";
-import Sidebar from "./shared/Navigation/Sidebar";
+import Sidebar from "./shared/components/Navigation/Sidebar";
 import UploadCsv from "./shared/util/UploadCsv";
 
 function App() {

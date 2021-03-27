@@ -1,0 +1,11 @@
+.dropzone {
+  border: 2px solid black;
+  width: 80vw;
+  height: 100px;
+  z-index: 1000;
+}
+
+.dropzone.highlight {
+  border: 3px solid rgb(84, 233, 84);
+  background: rgba(147, 169, 216, 0.767);
+}
