@@ -19,7 +19,7 @@ const Create = () => {
   const userID = "API logistics";
 
   /*
-  hi
+  
   const [returnState,setReturnState] = useState('');
   const [returnCity,setReturnCity] = useState('');*/
   const [paymentMode,setPaymentMode] = useState("prepaid");
