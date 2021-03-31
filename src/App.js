@@ -1,11 +1,10 @@
 import Navbar from "./shared/components/Navigation/Navbar";
-import Home from "./Home/pages/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Create from "./Blog/pages/Create";
-import BlogDetails from "./Blog/pages/BlogDetails";
+import Home from "./pages/Home/Home";
+import CreateOrder from "./pages/CreateOrder/CreateOrder";
+import BlogDetails from "./pages/Blog/BlogDetails";
 import NotFound from "./shared/components/NotFound";
 import Sidebar from "./shared/components/Navigation/Sidebar";
-import UploadCsv from "./shared/util/UploadCsv";
 
 function App() {
   return (
@@ -20,11 +19,9 @@ function App() {
                 <Home />
               </Route>
               <Route path="/create">
-                <Create />
+                <CreateOrder />
               </Route>
-              <Route path="/UploadCsv">
-                <UploadCsv />
-              </Route>
+
               <Route path="/blogs/:id">
                 <BlogDetails />
               </Route>

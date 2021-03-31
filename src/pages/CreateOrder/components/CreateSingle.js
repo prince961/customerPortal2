@@ -1,16 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import { useHttpClient } from "../../shared/hooks/useHttpClient";
-import GetPincodeDetails from "../../shared/util/GetPincodeDetails";
+import { useHttpClient } from "../../../shared/hooks/useHttpClient";
 import { useDropzone } from "react-dropzone";
 import base64 from "base-64";
-const Create = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  var consigneePincodeEntered = false;
+const CreateSingle = () => {
+  const { sendRequest } = useHttpClient();
   const [title, setTitle] = useState("1");
   const [body, setBody] = useState("1");
   const [author, setAuthor] = useState("mario");
-  const history = useHistory();
   const codType = "Prepaid";
   const userID = "API logistics";
 
@@ -749,4 +745,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreateSingle;

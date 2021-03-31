@@ -1,7 +1,6 @@
 .dropzone {
   border: 2px solid black;
-  width: 80vw;
-  height: 100px;
+  width: 100%;
   z-index: 1000;
 }
 
