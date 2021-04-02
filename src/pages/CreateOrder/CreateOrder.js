@@ -5,7 +5,7 @@ import Button from "../../shared/components/UIElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
 import Dropzone from "../../shared/components/Dropzone/Dropzone1";
 import UploadCsv from "./components/UploadCsv";
-import demoFile from "./util/demo.xlsx";
+import demoFile from "./util/demo.csv";
 const CreateOrder = () => {
   const [selecting, setSelecting] = useState(null);
   const [single, setSingle] = useState(null);
@@ -87,7 +87,7 @@ const CreateOrder = () => {
           )
         ) : (
           <div>
-            <Button inverse onClick={() => setSelecting(false)}>
+            <Button inverse href={"/create"}>
               Please Select a Mode
             </Button>
           </div>
