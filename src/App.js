@@ -1,11 +1,14 @@
-import Navbar from "./shared/Navigation/Navbar";
-import Home from "./Home/pages/Home";
+import Navbar from "./shared/components/Navigation/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Create from "./Blog/pages/Create";
-import BlogDetails from "./Blog/pages/BlogDetails";
+import Home from "./pages/Home/Home";
+import CreateOrder from "./pages/CreateOrder/CreateOrder";
+import BlogDetails from "./pages/Blog/BlogDetails";
+import Form from "./pages/Auth/Auth";
 import NotFound from "./shared/components/NotFound";
-import Sidebar from "./shared/Navigation/Sidebar";
-import UploadCsv from "./shared/util/UploadCsv";
+import Sidebar from "./shared/components/Navigation/Sidebar";
+import Login from "../src/pages/Auth/components/Login";
+import Register from "../src/pages/Auth/components/Register";
+import "./App.css";
 
 function App() {
   return (
@@ -19,12 +22,16 @@ function App() {
               <Route exact path="/">
                 <Home />
               </Route>
+              <div className="container">
+                <Route exact path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+              </div>
+              {/* <Route exact path="/login" component={Login} />
+              <Route path="/register" component={Register} /> */}
               <Route path="/create">
-                <Create />
+                <CreateOrder />
               </Route>
-              <Route path="/UploadCsv">
-                <UploadCsv />
-              </Route>
+
               <Route path="/blogs/:id">
                 <BlogDetails />
               </Route>

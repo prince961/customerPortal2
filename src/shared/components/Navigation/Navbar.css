@@ -1,0 +1,18 @@
+hr {
+  width: 70%;
+  border-style: none;
+  border-top-style: dotted;
+  border-color: dimgray;
+  border-width: 5px;
+  margin: 10px auto;
+}
+.navbar-modal-content {
+  flex-direction: column;
+}
+.modal-content {
+  padding: 4px;
+}
+.header-content {
+  display: flex;
+  align-items: center;
+}

@@ -1,10 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 /* base styles */
 * {
   margin: 0;
   font-family: "Quicksand";
-  color: #333;
+  /* color: #333; */
+  box-sizing: border-box;
+}
+.center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .navbar {
   padding: 20px;
@@ -29,7 +36,7 @@
   color: #f1356d;
 }
 .content {
-  max-width: 100%;
+  max-width: 70%;
   margin: 40px auto;
   padding: 20px;
   flex: 1 0 auto;
@@ -42,14 +49,14 @@
   border-bottom: 1px solid #fafafa;
 }
 .blog-preview:hover {
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
 }
 .blog-preview h2 {
   font-size: 20px;
   color: #f1356d;
   margin-bottom: 8px;
 }
-.blog-preview a{
+.blog-preview a {
   text-decoration: none;
 }
 
@@ -86,7 +93,9 @@
   color: #f1356d;
   margin-bottom: 30px;
 }
-.create input, .create textarea, .create select {
+.create input,
+.create textarea,
+.create select {
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
@@ -109,21 +118,21 @@
 }
 .sidebar {
   width: 25%px;
-  height: 100%;  
-  transition: .5s ease; 
+  height: 100%;
+  transition: 0.5s ease;
 }
 
-.customer-details-left{
+.customer-details-left {
   flex-grow: 1;
   padding: 2%;
 }
 
-.customer-details-right{
+.customer-details-right {
   flex-grow: 1;
   padding: 2%;
 }
 
-.customer-details-mid{
+.customer-details-mid {
   flex-grow: 1;
   padding: 2%;
 }
