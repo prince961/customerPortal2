@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import BlogList from "../Blog/components/BlogList";
-import { useHttpClient } from "../../shared/hooks/useHttpClient";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Home = () => {
   const [blogs, setBlogs] = useState();

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useHttpClient } from "../../../shared/hooks/useHttpClient";
+import { useHttpClient } from "../../../shared/hooks/http-hook";
 import { useDropzone } from "react-dropzone";
 import base64 from "base-64";
 const CreateSingle = () => {

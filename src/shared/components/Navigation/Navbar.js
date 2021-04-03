@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Button from "../UIElements/Button";
+import Button from "../FormElements/Button";
 import "./Navbar.css";
 const Navbar = () => {
   return (
@@ -7,6 +7,7 @@ const Navbar = () => {
       <h1>The Dojo Blog</h1>
       <div className="links">
         <Link to="/">Home</Link>
+        <Link to="/auth">Register</Link>
         <Button href={"/create"}>Create Order</Button>
         {/* <Link
           to="/create"

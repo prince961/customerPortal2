@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useHttpClient } from "../../shared/hooks/useHttpClient";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const BlogDetails = () => {
   const { isLoading, error, sendRequest } = useHttpClient();

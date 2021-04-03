@@ -5,7 +5,7 @@ import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import BlogDetails from "./pages/Blog/BlogDetails";
 import NotFound from "./shared/components/NotFound";
 import Sidebar from "./shared/components/Navigation/Sidebar";
-
+import Auth from "./pages/Auth/Auth";
 function App() {
   return (
     <Router>
@@ -18,6 +18,15 @@ function App() {
               <Route exact path="/">
                 <Home />
               </Route>
+              <Route exact path={"/auth"}>
+                <Auth />
+              </Route>
+              {/* <div className="container">
+                <Route exact path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+              </div> */}
+              {/* <Route exact path="/login" component={Login} />
+              <Route path="/register" component={Register} /> */}
               <Route path="/create">
                 <CreateOrder />
               </Route>
