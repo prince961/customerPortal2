@@ -4,9 +4,8 @@ import { useHistory } from "react-router-dom";
 import Input from "../../../shared/components/FormElements/Input";
 import Button from "../../../shared/components/FormElements/Button";
 import {
-  VALIDATOR_EMAIL,
-  VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
+  VALIDATOR_EMAIL,
 } from "../../../shared/util/validators";
 import { useForm } from "../../../shared/hooks/form-hook";
 import { useHttpClient } from "../../../shared/hooks/http-hook";
@@ -53,9 +52,9 @@ const Register = ({ login, setLogin }) => {
             element="input"
             id="name"
             type="text"
-            label={"NAME"}
+            label={"USER ID"}
             validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a Name"
+            // errorText="Please enter a Name"
             onInput={inputHandler}
           />
 
@@ -74,8 +73,8 @@ const Register = ({ login, setLogin }) => {
             id="password"
             type="password"
             label={"PASSWORD"}
-            validators={[VALIDATOR_MINLENGTH(6)]}
-            errorText="Please enter a valid password, at least 5 characters."
+            validators={[VALIDATOR_REQUIRE()]}
+            // errorText="Please enter a valid password, at least 5 characters."
             onInput={inputHandler}
           />
 
@@ -84,7 +83,7 @@ const Register = ({ login, setLogin }) => {
           </Button>
           <div style={{ display: "inline-block", marginLeft: "6rem" }}>
             <Button inverse onClick={() => setLogin(!login)}>
-              {!login ? "LOGIN" : "REGISTER"}
+              {login ? "LOGIN" : "REGISTER"}
             </Button>
           </div>
         </form>
