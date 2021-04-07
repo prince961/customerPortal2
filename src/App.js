@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Router, Redirect, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn } from "./actions/authAction";
 
@@ -8,7 +8,6 @@ import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import Auth from "./pages/Auth/Auth";
 
 import { CssBaseline } from "@material-ui/core";
-import Layout from "./components/Layout/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import history from "./util/history";
 
@@ -22,13 +21,6 @@ const App = () => {
       dispatch(isLoggedIn());
     }
   }, [auth.authenticated, dispatch]);
-  const routes = (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/create" component={CreateOrder} />
-      <Redirect to="/" />
-    </Switch>
-  );
 
   console.log(auth.authenticated);
 
