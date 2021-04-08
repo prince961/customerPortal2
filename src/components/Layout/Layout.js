@@ -22,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Layout(props) {
   const classes = useStyles();
-  const SideMenuItems = {
-    "Your Orders": "shipping-fast",
-    Dashboard: "chart-pie",
-    "Rate Calculator": "calculator",
-    "Print Packaging": "file-invoice ",
-  };
+  const SideMenuItems = [
+    { name: "Your Orders", icon: "shipping-fast", route: "orders" },
+    { name: "Dashboard", icon: "chart-pie", route: "dashboard" },
+    { name: "Rate Calculator", icon: "calculator", route: "rate" },
+
+    { name: "Order Tracking", icon: "truck-moving", route: "track" },
+  ];
 
   return (
     <div className={classes.root}>

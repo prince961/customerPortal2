@@ -22,7 +22,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { Button, useMediaQuery } from "@material-ui/core";
 import { logout } from "../../actions/authAction";
 import { useDispatch } from "react-redux";
-
+import { useHistory } from "react-router";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Navigation = ({ items }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -201,12 +202,16 @@ const Navigation = ({ items }) => {
         </div>
         <Divider />
         <List>
-          {Object.keys(items).map((keyName) => (
-            <ListItem button key={keyName}>
+          {items.map((item) => (
+            <ListItem
+              button
+              key={item.name}
+              onClick={() => history.push(`/${item.route}`)}
+            >
               <ListItemIcon>
-                <i className={`fas fa-2x fa-${items[keyName]}`}></i>
+                <i className={`fas fa-2x fa-${item.icon}`}></i>
               </ListItemIcon>
-              <ListItemText primary={keyName} />
+              <ListItemText primary={item.name} />
             </ListItem>
           ))}
         </List>

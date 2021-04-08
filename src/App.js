@@ -31,7 +31,8 @@ const App = () => {
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/create" component={CreateOrder} />
-          <Route exact path="/auth" component={Auth} />
+          {/* <PrivateRoute exact path="/orders" component={Orders} /> */}
+          {!auth.authenticated && <Route exact path="/auth" component={Auth} />}
         </Switch>
       </Router>
     </div>
