@@ -27,7 +27,7 @@ export default function Layout(props) {
     { name: "Dashboard", icon: "chart-pie", route: "dashboard" },
     { name: "Rate Calculator", icon: "calculator", route: "rate" },
 
-    { name: "Order Tracking", icon: "truck-moving", route: "track" },
+    { name: "Order Tracking", icon: "map-marked-alt", route: "track" },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { Field, Form } from "react-final-form";
 import { login } from "../../../actions/authAction";
 
 const Login = (props) => {
@@ -21,39 +21,45 @@ const Login = (props) => {
       </div>
     </>
   );
-  const onLoginSubmit = (formValues) => {
-    dispatch(login(formValues));
-  };
+
   return (
-    <form onSubmit={props.handleSubmit(onLoginSubmit)} className="sign-in-form">
-      <h2 className="title">Welcome</h2>
-      <Field
-        name="userName"
-        icon="fas fa-user"
-        placeholder="Username"
-        component={renderField}
-      />
-      <Field
-        name="password"
-        icon="fas fa-lock"
-        placeholder="Password"
-        component={renderField}
-      />
-      <input type="submit" value="Login" className="btn solid" />
-    </form>
+    <Form
+      onSubmit={(formValues) => {
+        dispatch(login(formValues));
+      }}
+      validate={(values) => {
+        const errors = {};
+        if (!values.userName) {
+          errors.userName = "Enter a username!";
+        }
+        if (!values.password) {
+          errors.password = "Enter a password!";
+        }
+        return errors;
+      }}
+    >
+      {({ handleSubmit, pristine, form, submitting }) => (
+        <form onSubmit={handleSubmit} className="sign-in-form">
+          {console.log(props)}
+          <h2 className="title">Welcome</h2>
+          <Field
+            name="userName"
+            icon="fas fa-user"
+            placeholder="Username"
+            component={renderField}
+          />
+          <Field
+            name="password"
+            icon="fas fa-lock"
+            placeholder="Password"
+            component={renderField}
+          />
+          <button type="submit" disabled={submitting} className="btn solid">
+            Log In{" "}
+          </button>
+        </form>
+      )}
+    </Form>
   );
 };
-function validate(values) {
-  const errors = {};
-  if (!values.userName) {
-    errors.userName = "Enter a username!";
-  }
-  if (!values.password) {
-    errors.password = "Enter a password!";
-  }
-  return errors;
-}
-export default reduxForm({
-  form: "LoginForm",
-  validate,
-})(Login);
+export default Login;
