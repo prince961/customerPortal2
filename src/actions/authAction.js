@@ -5,12 +5,13 @@ import history from "../util/history";
 export const login = (formValues) => async (dispatch) => {
   dispatch({ type: `${authConstant.USER_LOGIN}_REQUEST` });
   try {
-    const response = await authApi.post("/login", formValues);
-    const { _id, userName } = response.data.user;
-    console.log(response.data);
+    // const response = await authApi.post("/login", formValues);
+
+    // const { _id, userName } = response.data.user;
+    // console.log(response.data);
     const loggedInUser = {
-      userId: _id,
-      userName,
+      userId: "1",
+      userName: "Mohit",
     };
     localStorage.setItem("user", JSON.stringify(loggedInUser));
     dispatch({
