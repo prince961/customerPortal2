@@ -10,6 +10,7 @@ import Auth from "./pages/Auth/Auth";
 import { CssBaseline } from "@material-ui/core";
 import PrivateRoute from "./components/PrivateRoute";
 import history from "./util/history";
+import Orders from "./pages/Orders/Orders";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,10 @@ const App = () => {
       <CssBaseline />
       <Router history={history}>
         <Switch>
+          {!auth.authenticated && <Route exact path="/auth" component={Auth} />}
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/create" component={CreateOrder} />
-          {/* <PrivateRoute exact path="/orders" component={Orders} /> */}
-          {!auth.authenticated && <Route exact path="/auth" component={Auth} />}
+          <PrivateRoute exact path="/orders" component={Orders} />
         </Switch>
       </Router>
     </div>

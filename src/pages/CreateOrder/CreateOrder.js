@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CreateSingle from "./components/CreateSingle";
+import CreateSingle from "./components/CreateOrderSingle";
 
 import Modal from "../../components/UIElements/Modal";
 import Dropzone from "../../components/Dropzone/Dropzone";
@@ -108,7 +108,7 @@ const CreateOrder = () => {
         </div>
       </Modal>
       <div>
-        <h1>Orders</h1>
+        <h1>Create Order</h1>
         {selecting ? (
           single ? (
             <CreateSingle />
