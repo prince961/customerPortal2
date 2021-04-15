@@ -54,7 +54,7 @@ const Track = () => {
           {data.hits.map((item) => (
             // feach the data us used
             <li key={item.Shipment}></li>
-          ))}
+          ))}it 
         </ul>
       )}
     </Fragment>
