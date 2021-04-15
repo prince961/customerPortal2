@@ -28,7 +28,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const CustomizedTable = ({ headItems, bodyItems, actions }) => {
+const CustomizedTable = ({ headItems, bodyItems, actions, maxHeight }) => {
   const classes = useStyles();
   // console.log(body);
   if (bodyItems.length === 0) {
@@ -37,7 +37,7 @@ const CustomizedTable = ({ headItems, bodyItems, actions }) => {
 
   return (
     <div>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ maxHeight: maxHeight }}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>

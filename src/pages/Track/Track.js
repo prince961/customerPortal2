@@ -1,63 +1,114 @@
-import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
-
+import React from "react";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import { TextField } from "final-form-material-ui";
+import { Field, Form } from "react-final-form";
+import { useDispatch, useSelector } from "react-redux";
+import { trackOrder } from "../../actions/trackAction";
+import TrackData from "../../components/TrackData/TrackData";
+import TrackScans from "../../components/TrackScans/TrackScans";
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  SubmitBtn: {
+    marginLeft: "2rem",
+  },
+  textField: {
+    margin: "20px 0",
+  },
+});
 const Track = () => {
-  const [data, setData] = useState({ hits: [] });
-  const [query, setQuery] = useState("8436410000022");
-  const [url, setUrl] = useState(
-    "https://track.delhivery.com/api/v1/packages/json/?token=8ff6cb0893fbca84b2e5a0ecb78e83c25a416933&waybill=8436410000022"
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const { ShipmentData, fetching, fetched, error } = useSelector(
+    (state) => state.trackData
   );
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const result = await axios(url, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-        setData(result.data);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [url]);
+  console.log(ShipmentData);
   return (
-    <Fragment>
-      <input
-        type="text"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
-      <button
-        type="submit"
-        className="btn solid"
-        onClick={() =>
-          setUrl(
-            `https://track.delhivery.com/api/v1/packages/json/?token=8ff6cb0893fbca84b2e5a0ecb78e83c25a416933&waybill=${query}`
-          )
-        }
+    <>
+      <Form
+        onSubmit={(formValues) => {
+          console.log(formValues);
+          dispatch(trackOrder(formValues));
+        }}
+        validate={(values) => {
+          const errors = {};
+          if (values.waybill === "") {
+            errors.waybill = "Required";
+          }
+          return errors;
+        }}
       >
-        Track
-      </button>
-      {isError && <div>Something went wrong ...</div>}
-      {isLoading ? (
-        <div>Loading ...</div>
+        {({ handleSubmit, pristine, form, submitting, values }) => (
+          <Paper component={"div"}>
+            <form onSubmit={handleSubmit} className={classes.root}>
+              <Field
+                className={classes.textField}
+                name="waybill"
+                type="text"
+                variant="outlined"
+                component={TextField}
+                label="AWB Number"
+                required
+              />
+              <Button
+                className={classes.SubmitBtn}
+                variant="contained"
+                color="secondary"
+                type="submit"
+                size="large"
+              >
+                <i className={`fas fa-2x fa-map-marked-alt`}></i>
+              </Button>
+            </form>
+          </Paper>
+        )}
+      </Form>
+      {fetching ? (
+        <Paper
+          style={{
+            margin: 100,
+            textAlign: "center",
+            padding: 20,
+          }}
+        >
+          <CircularProgress color="secondary" />
+        </Paper>
       ) : (
-        <ul>
-          {data.hits.map((item) => (
-            // feach the data us used
-            <li key={item.Shipment}></li>
-          ))}it 
-        </ul>
+        fetched &&
+        (!error ? (
+          <Grid container spacing={4} style={{ marginTop: 12 }}>
+            <Grid item md={4}>
+              <TrackData Shipment={ShipmentData[0].Shipment} />
+            </Grid>
+            <Grid item md={8}>
+              <TrackScans Shipment={ShipmentData[0].Shipment} />
+            </Grid>
+          </Grid>
+        ) : (
+          <Paper
+            style={{
+              margin: 100,
+              textAlign: "center",
+              padding: 20,
+              color: "red",
+            }}
+          >
+            <Typography variant="h3">{error}</Typography>
+          </Paper>
+        ))
       )}
-    </Fragment>
+    </>
   );
 };
 

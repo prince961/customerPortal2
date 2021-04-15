@@ -1,6 +1,5 @@
 import React from "react";
 import Navigation from "../Navigation/Navigation";
-import Track from "../../pages/Track/Track";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +36,6 @@ export default function Layout(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
-        {props.children}
-        {props.children}
-        {props.children}
-        <Track />
       </main>
     </div>
   );

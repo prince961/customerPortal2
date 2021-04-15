@@ -5,3 +5,6 @@ export const authConstant = {
 export const userOrderConstant = {
   USER_ORDERS_FETCH: "USER_ORDERS_FETCH",
 };
+export const trackConstant = {
+  TRACK_ORDER: "TRACK_ORDER",
+};

@@ -1,13 +1,17 @@
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Field } from "react-final-form";
 import { TextField } from "final-form-material-ui";
+import CustomizedTextField from "../../components/CustomizedTextField/CustomizedTextField";
 
-const FormOrderDetails = ({ submitting, nextStep, prevStep, values }) => {
+const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
+  console.log(values);
+
+  console.log();
   return (
     <Paper style={{ padding: 16 }}>
       <Grid container spacing={4} justify="center" alignItems="center">
-        <Grid item xs={12} justify="center">
+        <Grid container item xs={12} justify="center">
           <Typography style={{ textAlign: "center" }} variant="h5">
             Order Details
           </Typography>
@@ -17,7 +21,7 @@ const FormOrderDetails = ({ submitting, nextStep, prevStep, values }) => {
             name="reference"
             type="text"
             variant="outlined"
-            component={TextField}
+            component={CustomizedTextField}
             label="Reference Number"
             required
           />
@@ -47,7 +51,7 @@ const FormOrderDetails = ({ submitting, nextStep, prevStep, values }) => {
             name="commudityValue"
             type="number"
             variant="outlined"
-            component={TextField}
+            component={CustomizedTextField}
             label="Commudity Value"
             required
           />
@@ -57,18 +61,10 @@ const FormOrderDetails = ({ submitting, nextStep, prevStep, values }) => {
             name="tax"
             type="number"
             variant="outlined"
-            component={TextField}
+            component={CustomizedTextField}
             label="Tax"
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Field
-            name="total"
-            type="number"
-            variant="outlined"
-            component={TextField}
-            label="Total Value"
+            tax={0.18}
+            value={values.commudityValue}
             required
           />
         </Grid>
@@ -77,8 +73,20 @@ const FormOrderDetails = ({ submitting, nextStep, prevStep, values }) => {
             name="codAmt"
             type="number"
             variant="outlined"
-            component={TextField}
+            component={CustomizedTextField}
             label="COD Amount"
+            tax={0.18}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Field
+            name="total"
+            type="number"
+            variant="outlined"
+            component={CustomizedTextField}
+            label="Total Value"
+            tax={0.18}
             required
           />
         </Grid>
