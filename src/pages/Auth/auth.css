@@ -67,7 +67,9 @@ form.sign-in-form {
   padding: 0 0.4rem;
   position: relative;
 }
-
+.input-field.red {
+  border: 2px solid red;
+}
 .input-field i {
   text-align: center;
   line-height: 55px;

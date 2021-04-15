@@ -1,25 +1,30 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  MenuItem,
+  Menu,
+  Drawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+} from "@material-ui/core";
 
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import {
+  Menu as MenuIcon,
+  AccountCircle,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+} from "@material-ui/icons";
 
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import { Button, useMediaQuery } from "@material-ui/core";
 import { logout } from "../../actions/authAction";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -95,10 +100,10 @@ const Navigation = ({ items }) => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -115,6 +120,41 @@ const Navigation = ({ items }) => {
   const handleClose = () => {
     dispatch(logout());
     setAnchorEl(null);
+  };
+  const appBarBtnRender = () => {
+    return (
+      <div>
+        <Button href="/create" color="secondary" variant="contained">
+          CREATE ORDER
+        </Button>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+        >
+          <AccountCircle fontSize="large" />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={openAccount}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>Log out</MenuItem>
+        </Menu>
+      </div>
+    );
   };
   return (
     <div className={classes.root}>
@@ -142,39 +182,7 @@ const Navigation = ({ items }) => {
             API Logistics
           </Typography>
 
-          {!isMobile && (
-            <div>
-              <Button href="/create" color="secondary" variant="contained">
-                CREATE ORDER
-              </Button>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-              >
-                <AccountCircle fontSize="large" />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={openAccount}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Log out</MenuItem>
-              </Menu>
-            </div>
-          )}
+          {!isMobile && appBarBtnRender()}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -216,6 +224,22 @@ const Navigation = ({ items }) => {
           ))}
         </List>
         <Divider />
+        {isMobile && (
+          <>
+            <ListItem button onClick={() => history.push("/create")}>
+              <ListItemIcon>
+                <i className={`fas fa-2x fa-cart-plus`}></i>
+              </ListItemIcon>
+              <ListItemText primary={"Create Order"} />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <i className={`fas fa-2x fa-user-circle`}></i>
+              </ListItemIcon>
+              <ListItemText primary={"Profile"} />
+            </ListItem>
+          </>
+        )}
       </Drawer>
     </div>
   );

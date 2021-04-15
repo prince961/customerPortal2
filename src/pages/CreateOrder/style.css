@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+/* create new blog form */
+.create {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.create label {
+  text-align: left;
+  display: block;
+}
+.create h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+.create input,
+.create textarea,
+.create select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid rgb(250, 2, 167);
+  box-sizing: border-box;
+  display: block;
+}
+.create button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.flexbox-container {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  width: 25%px;
+  height: 100%;
+  transition: 0.5s ease;
+}
+
+.customer-details-left {
+  flex-grow: 1;
+  padding: 2%;
+}
+
+.customer-details-right {
+  flex-grow: 1;
+  padding: 2%;
+}
+
+.customer-details-mid {
+  flex-grow: 1;
+  padding: 2%;
+}

@@ -8,16 +8,23 @@ const Login = (props) => {
 
   const renderField = (field) => (
     <>
+      {console.log(field)}
       <div
-        className="input-field"
-        style={{
-          border: `2px solid ${
-            field.meta.touched && field.meta.error && "red"
-          }`,
-        }}
+        className={`input-field ${
+          field.meta.touched && field.meta.error && "red"
+        }`}
+        // style={{
+        //   border: `2px solid ${
+        //     field.meta.touched && field.meta.error && "red"
+        //   }`,
+        // }}
       >
         <i className={field.icon}></i>
-        <input type="text" {...field.input} placeholder={field.placeholder} />
+        <input
+          {...field.input}
+          placeholder={field.placeholder}
+          autoComplete={field.autocomplete}
+        />
       </div>
     </>
   );
@@ -40,22 +47,25 @@ const Login = (props) => {
     >
       {({ handleSubmit, pristine, form, submitting }) => (
         <form onSubmit={handleSubmit} className="sign-in-form">
-          {console.log(props)}
+          {/* {console.log(props)} */}
           <h2 className="title">Welcome</h2>
           <Field
             name="userName"
             icon="fas fa-user"
             placeholder="Username"
+            type="text"
             component={renderField}
           />
           <Field
             name="password"
+            type="password"
             icon="fas fa-lock"
             placeholder="Password"
             component={renderField}
+            autocomplete="on"
           />
           <button type="submit" disabled={submitting} className="btn solid">
-            Log In{" "}
+            Log In
           </button>
         </form>
       )}

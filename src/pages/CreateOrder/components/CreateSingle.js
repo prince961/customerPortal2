@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import base64 from "base-64";
+import "../style.css";
 const CreateSingle = () => {
   const [title, setTitle] = useState("1");
   const [body, setBody] = useState("1");
@@ -285,26 +285,6 @@ const CreateSingle = () => {
     setCODValue(commodity_value * 1.18);
   };
 
-  function MyDropzone() {
-    const onDrop = useCallback((acceptedFiles) => {
-      // Do something with the files
-    }, []);
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-      onDrop,
-    });
-
-    return (
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
-    );
-  }
-
   /*
   const { error, isPending, data } = useFetch('http://localhost:9000/pincode/'+122002);
     var cityFromPincode = data.CITY;
@@ -312,31 +292,10 @@ const CreateSingle = () => {
 
   return (
     <div className="create">
-      <h2>Book a new shipment</h2>
       <form onSubmit={handleSubmit}>
-        <label>Blog title:</label>
-        <input
-          type="text"
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Blog body:</label>
-        <textarea
-          required
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-        ></textarea>
-        <label>Blog author:</label>
-        <select value={author} onChange={(e) => setAuthor(e.target.value)}>
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
-        </select>
-
         <label>Forward/Reverse Type:</label>
         <select>
           <option value="Forward" selected>
-            {" "}
             Forward
           </option>
           <option value="Reverse">Reverse</option>
