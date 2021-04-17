@@ -3,7 +3,6 @@ import React from "react";
 import CustomizedTable from "../CustomizedTable/CustomizedTable";
 const useStyles = makeStyles({
   scanList: {
-    height: "80vh",
     margin: 4,
     padding: "8 0",
   },
@@ -37,7 +36,7 @@ const TrackScans = ({ Shipment: { Scans } }) => {
         <Typography variant="h5">Detailed Scans</Typography>
       </div>
 
-      <CustomizedTable headItems={head} bodyItems={body} maxHeight={422} />
+      <CustomizedTable headItems={head} bodyItems={body} maxHeight={400} />
     </Paper>
   );
 };

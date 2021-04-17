@@ -109,6 +109,8 @@ const CreateOrderSingle = () => {
                   values={values}
                 />
               );
+            default:
+              setStep(1);
           }
         }}
       </Form>

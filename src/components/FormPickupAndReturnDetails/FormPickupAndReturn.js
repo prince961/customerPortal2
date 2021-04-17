@@ -1,10 +1,79 @@
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
-import React from "react";
+import {
+  TextField as TF,
+  Button,
+  Grid,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import React, { useState } from "react";
 import { Field } from "react-final-form";
 import { TextField } from "final-form-material-ui";
+import pincodeApi from "../../apis/pincode";
 const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
-  console.log(values);
+  const [city, setCity] = useState(!values.pickupCity ? "" : values.pickupCity);
+  const [state, setState] = useState(
+    !values.pickupState ? "" : values.pickupState
+  );
+  const [rCity, setRcity] = useState(
+    !values.returnCity ? "" : values.returnCity
+  );
+  const [rState, setRstate] = useState(
+    !values.returnState ? "" : values.returnState
+  );
 
+  const fetchPincode = async (pincode, field) => {
+    try {
+      const response = await pincodeApi.get(`/${pincode}`);
+      if (response.data.body.length === 0) {
+        setCity("");
+        setState("");
+        setRcity("");
+        setRstate("");
+      } else {
+        if (field === "pickupPincode") {
+          setCity(response.data.body[0].CITY);
+          setState(response.data.body[0].STATE);
+          values.pickupPincode = response.data.body[0].id;
+          values.pickupCity = response.data.body[0].CITY;
+          values.pickupState = response.data.body[0].STATE;
+        } else {
+          setRcity(response.data.body[0].CITY);
+          setRstate(response.data.body[0].STATE);
+          values.returnPincode = response.data.body[0].id;
+          values.returnCity = response.data.body[0].CITY;
+          values.returnState = response.data.body[0].STATE;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case `pickupCity`:
+        setCity(value);
+        break;
+      case `pickupState`:
+        setState(value);
+        break;
+      case `returnCity`:
+        setRcity(value);
+        break;
+      case `returnState`:
+        setRstate(value);
+
+        break;
+
+      default:
+        if (value > 100000) {
+          //function
+          fetchPincode(value, name);
+        }
+    }
+    values[name] = value;
+  };
+  console.log(values);
   return (
     <Paper style={{ padding: 16 }}>
       <Grid spacing={4} container justfy="center" alignItems="center">
@@ -23,36 +92,35 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="pickupPincode"
             fullWidth
-            type="number"
             variant="outlined"
-            component={TextField}
             label="Pickup Pincode"
             required
+            onChange={handleChange}
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="pickupCity"
             fullWidth
-            type="text"
             variant="outlined"
-            component={TextField}
             label="Pickup City"
             required
+            value={city}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="pickupState"
             fullWidth
-            type="text"
             variant="outlined"
-            component={TextField}
             label="Pickup State"
             required
+            value={state}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
@@ -72,36 +140,35 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="returnPincode"
             fullWidth
-            type="number"
             variant="outlined"
-            component={TextField}
             label="Return Pincode"
             required
+            onChange={handleChange}
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="returnCity"
             fullWidth
-            type="text"
             variant="outlined"
-            component={TextField}
             label="Return City"
             required
+            value={rCity}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item sm={6} md={4}>
-          <Field
+          <TF
             name="returnState"
             fullWidth
-            type="text"
             variant="outlined"
-            component={TextField}
             label="Return State"
             required
+            value={rState}
+            onChange={handleChange}
           />
         </Grid>
 

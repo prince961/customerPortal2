@@ -8,3 +8,6 @@ export const userOrderConstant = {
 export const trackConstant = {
   TRACK_ORDER: "TRACK_ORDER",
 };
+export const pincodeConstant = {
+  FETCH_PINCODE: "FETCH_PINCODE",
+};
