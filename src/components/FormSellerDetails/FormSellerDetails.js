@@ -6,18 +6,31 @@ import {
   FormControl,
   FormGroup,
   Button,
+  MenuItem,
 } from "@material-ui/core";
 import React from "react";
 import { Field } from "react-final-form";
-import { Checkbox, TextField } from "final-form-material-ui";
+import { TextField, Select } from "final-form-material-ui";
 
-const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
+const FormSellerDetails = ({ nextStep, prevStep, submitting, pristine }) => {
   return (
     <Paper style={{ padding: 16 }}>
       <Grid container spacing={4} justify="center" alignItems="center">
         <Typography variant="h5">Seller Details</Typography>
-
         <Grid item xs={12}>
+          <Field
+            fullWidth
+            name="seller"
+            component={Select}
+            label="Select Seller"
+            formControlProps={{ fullWidth: true }}
+          >
+            <MenuItem value="seller1">Seller 1</MenuItem>
+            <MenuItem value="seller2">Seller 2</MenuItem>
+          </Field>
+        </Grid>
+
+        {/* <Grid item xs={12}>
           <FormControl component="fieldset">
             <FormGroup row>
               <FormControlLabel
@@ -33,7 +46,7 @@ const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
               />
             </FormGroup>
           </FormControl>
-        </Grid>
+        </Grid> */}
         <Grid item sm={6} md={12}>
           <Field
             fullWidth
@@ -42,7 +55,6 @@ const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
             variant="outlined"
             component={TextField}
             label="Seller Name"
-            required
           />
         </Grid>
         <Grid item sm={6} md={12}>
@@ -55,7 +67,6 @@ const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
             variant="outlined"
             component={TextField}
             label="Seller Address"
-            required
           />
         </Grid>
         <Grid item sm={6} md={6}>
@@ -77,17 +88,10 @@ const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
             variant="outlined"
             component={TextField}
             label="Invoice Number"
-            required
           />
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          //   style={{
-          //     marginTop: 16,
-          //   }}
-        >
+        <Grid item xs={12}>
           <Button
             style={{ margin: 10 }}
             variant="contained"
@@ -102,7 +106,7 @@ const FormSellerDetails = ({ nextStep, prevStep, submitting }) => {
             variant="contained"
             color="secondary"
             onClick={() => nextStep()}
-            disabled={submitting}
+            disabled={submitting || pristine}
           >
             Next
           </Button>

@@ -1,61 +1,36 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  MenuItem,
-  Paper,
-  RadioGroup,
-  Typography,
-} from "@material-ui/core";
+import { Button, Grid, MenuItem, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import { Field } from "react-final-form";
-import { Radio, Select } from "final-form-material-ui";
+import { Select } from "final-form-material-ui";
 
-const FormPaymentMethod = ({ nextStep, submitting, values }) => {
+const FormPaymentMethod = ({ nextStep, submitting, values, pristine }) => {
   console.log(values);
-
   return (
     <Paper style={{ padding: 16 }}>
       <Grid container justify="center" alignItems="center" spacing={2}>
         <Typography variant="h5">Payment details</Typography>
+
         <Grid item xs={12}>
-          <FormControl component="fieldset">
-            <FormLabel compenet="legend">Order Type</FormLabel>
-            <RadioGroup row>
-              <FormControlLabel
-                label="Forward"
-                control={
-                  <Field
-                    name="orderType"
-                    component={Radio}
-                    type="radio"
-                    value="forward"
-                  />
-                }
-              />
-              <FormControlLabel
-                label="Reverse"
-                control={
-                  <Field
-                    name="orderType"
-                    component={Radio}
-                    type="radio"
-                    value="reverse"
-                  />
-                }
-              />
-            </RadioGroup>
-          </FormControl>
+          <Field
+            fullWidth
+            name="orderType"
+            component={Select}
+            label="Select Order Type"
+            formControlProps={{ fullWidth: true }}
+            defaultValue="forward"
+          >
+            <MenuItem value="forward">Forward</MenuItem>
+            <MenuItem value="reverse">Reverse</MenuItem>
+          </Field>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Field
             fullWidth
             name="paymentMode"
             component={Select}
             label="Select Payment Method"
             formControlProps={{ fullWidth: true }}
+            defaultValue="prepaid"
           >
             <MenuItem value="cod">COD</MenuItem>
             <MenuItem value="prepaid">Pre-paid</MenuItem>
@@ -67,7 +42,7 @@ const FormPaymentMethod = ({ nextStep, submitting, values }) => {
             variant="contained"
             color="secondary"
             onClick={nextStep}
-            disabled={submitting}
+            disabled={submitting || pristine}
           >
             Next
           </Button>

@@ -4,7 +4,9 @@ export const trackOrder = (formValues) => async (dispatch) => {
   dispatch({ type: `${trackConstant.TRACK_ORDER}_REQUEST` });
   try {
     const { waybill } = formValues;
-    const response = await trackApi.get(``, { params: { waybill: waybill } });
+    const response = await trackApi.get(`/track`, {
+      params: { waybill: waybill },
+    });
     if (response.data.data.Error) {
       dispatch({
         type: `${trackConstant.TRACK_ORDER}_FAILURE`,

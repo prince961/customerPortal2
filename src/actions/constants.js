@@ -11,3 +11,6 @@ export const trackConstant = {
 export const pincodeConstant = {
   FETCH_PINCODE: "FETCH_PINCODE",
 };
+export const rateConstant = {
+  FETCH_RATE: "FETCH_RATE",
+};

@@ -17,8 +17,8 @@ const CustomizedTextField = ({
       helperText={meta.touched ? meta.error : undefined}
       error={meta.error && meta.touched}
       inputProps={input.restInput}
-      onChange={input.onChange}
-      value={tax ? input.value * tax : input.value}
+      onChange={onChange}
+      value={input.value}
     />
   );
 };

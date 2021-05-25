@@ -28,13 +28,19 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const CustomizedTable = ({ headItems, bodyItems, actions, maxHeight }) => {
+const CustomizedTable = ({
+  headItems,
+  bodyItems,
+  actions,
+  maxHeight,
+  select,
+}) => {
   const classes = useStyles();
   // console.log(body);
   if (bodyItems.length === 0) {
     return <div>No such item</div>;
   }
-
+  console.log(bodyItems);
   return (
     <div>
       <TableContainer component={Paper} style={{ maxHeight: maxHeight }}>
@@ -50,9 +56,9 @@ const CustomizedTable = ({ headItems, bodyItems, actions, maxHeight }) => {
           </TableHead>
           <TableBody>
             {bodyItems.map((bodyItem) => (
-              <TableRow>
-                {Object.keys(bodyItem).map((key) => (
-                  <StyledTableCell key={bodyItem + key}>
+              <TableRow onClick={() => select(bodyItem)}>
+                {Object.keys(bodyItem).map((key, index) => (
+                  <StyledTableCell key={bodyItem + key + index}>
                     {bodyItem[key]}
                   </StyledTableCell>
                 ))}

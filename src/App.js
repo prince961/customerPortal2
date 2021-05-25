@@ -12,6 +12,7 @@ import Track from "./pages/Track/Track";
 import { CssBaseline } from "@material-ui/core";
 import PrivateRoute from "./components/PrivateRoute";
 import history from "./util/history";
+import RateCalculator from "./pages/RateCalculator/RateCalculator";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
           <PrivateRoute exact path="/create" component={CreateOrder} />
           <PrivateRoute exact path="/orders" component={Orders} />
           <PrivateRoute exact path="/track" component={Track} />
+          <PrivateRoute exact path="/rate" component={RateCalculator} />
         </Switch>
       </Router>
     </div>

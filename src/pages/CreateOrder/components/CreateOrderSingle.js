@@ -15,7 +15,7 @@ const CreateOrderSingle = () => {
   const prevStep = () => {
     setStep(step - 1);
   };
-  console.log(step);
+
   return (
     <div className="">
       <Form
@@ -24,11 +24,31 @@ const CreateOrderSingle = () => {
         }}
         validate={(values) => {
           const errors = {};
-
+          console.log(values);
+          if (!values.address) {
+            errors.address = "Required";
+          }
+          if (!values.name) {
+            errors.name = "Required";
+          }
+          if (!values.phone) {
+            errors.phone = "Required";
+          }
+          if (!values.items) {
+            errors.items = "Required";
+          }
+          if (!values.sellerGST) {
+            errors.sellerGST = "Required";
+          }
+          if (values.sellerGST && values.sellerGST.length !== 15) {
+            errors.sellerGST = "GST must be 15 digit";
+          }
+          console.log(errors);
           return errors;
         }}
       >
-        {({ handleSubmit, pristine, form, submitting, values }) => {
+        {({ handleSubmit, pristine, errors, form, submitting, values }) => {
+          console.log(errors);
           switch (step) {
             case 1:
               return (
@@ -49,6 +69,7 @@ const CreateOrderSingle = () => {
                   prevStep={prevStep}
                   handleSubmit={handleSubmit}
                   pristine={pristine}
+                  errors={errors}
                   form={form}
                   submitting={submitting}
                 />
@@ -104,6 +125,7 @@ const CreateOrderSingle = () => {
             case 7:
               return (
                 <CompanySelection
+                  errors={errors}
                   handleSubmit={handleSubmit}
                   prevStep={prevStep}
                   values={values}

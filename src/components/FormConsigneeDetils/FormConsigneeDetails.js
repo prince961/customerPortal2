@@ -11,7 +11,14 @@ import { TextField } from "final-form-material-ui";
 
 import pincodeApi from "../../apis/pincode";
 
-const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
+const FormConsigneeDetails = ({
+  nextStep,
+  prevStep,
+  submitting,
+  values,
+  errors,
+  pristine,
+}) => {
   const [city, setCity] = useState(!values.city ? "" : values.pickupCity);
   const [state, setState] = useState(!values.state ? "" : values.state);
   const onHandleChange = (e) => {
@@ -51,7 +58,7 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
     }
   };
 
-  console.log(values);
+  console.log(values, errors);
   return (
     <Paper style={{ padding: 16 }}>
       <Grid spacing={4} container justfy="center" alignItems="center">
@@ -65,8 +72,8 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             variant="outlined"
             component={TextField}
             label="Consignee Address"
-            rows={5}
             required
+            rows={5}
           />
         </Grid>
         <Grid item sm={6} md={4}>
@@ -75,7 +82,6 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             fullWidth
             variant="outlined"
             label="Consignee Pincode"
-            required
             onChange={onHandleChange}
           />
         </Grid>
@@ -85,7 +91,6 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             fullWidth
             variant="outlined"
             label="Consignee City"
-            required
             value={city}
             onChange={onHandleChange}
           />
@@ -96,12 +101,11 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             fullWidth
             variant="outlined"
             label="Consignee State"
-            required
             value={state}
             onChange={onHandleChange}
           />
         </Grid>
-        <Grid item sm={6} md={4}>
+        <Grid item sm={12} md={4}>
           <Field
             name="name"
             fullWidth
@@ -131,7 +135,6 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             variant="outlined"
             component={TextField}
             label="Consignee Email"
-            required
           />
         </Grid>
 
@@ -150,7 +153,7 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
             variant="contained"
             color="secondary"
             onClick={nextStep}
-            disabled={submitting}
+            disabled={submitting || pristine}
           >
             Next
           </Button>

@@ -3,7 +3,7 @@ import { userOrderConstant } from "./constants";
 export const userOrdersFetch = (userId) => async (dispatch) => {
   dispatch({ type: `${userOrderConstant.USER_ORDERS_FETCH}_REQUEST` });
   try {
-    const response = await userOrderApi.get(`/${userId}`, {});
+    const response = await userOrderApi.get(`/user/${userId}`, {});
 
     dispatch({
       type: `${userOrderConstant.USER_ORDERS_FETCH}_SUCESS`,

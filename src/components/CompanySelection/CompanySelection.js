@@ -1,10 +1,11 @@
 import { Button, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { CheckCircle } from "@material-ui/icons";
 import CustomizedTable from "../CustomizedTable/CustomizedTable";
-import React from "react";
-function createData(company, product, promisedTAT, pastTAT, rate) {
+import React, { useEffect, useState } from "react";
+function createData(company, companyName, product, promisedTAT, pastTAT, rate) {
   return {
     company,
+    companyName,
     product,
     promisedTAT,
     pastTAT,
@@ -15,6 +16,7 @@ const imageRender = (src) => <img width="40px" src={src} alt="" />;
 const body = [
   createData(
     imageRender("https://assets.aftership.com/couriers/svg/dtdc-express.svg"),
+    "DTDC Express",
     "Priority",
     "5 days",
     "4 days",
@@ -22,6 +24,7 @@ const body = [
   ),
   createData(
     imageRender("https://assets.aftership.com/couriers/svg/dtdc-express.svg"),
+    "DTDC Express",
     "Premium",
     "2 days",
     "1 days",
@@ -31,6 +34,7 @@ const body = [
     imageRender(
       "https://w7.pngwing.com/pngs/102/952/png-transparent-pettah-thiruvananthapuram-delhivery-courier-logo-organization-d-miscellaneous-angle-company.png"
     ),
+    "DELHIVERY",
     "Surface",
     "4 days",
     "4 days",
@@ -40,6 +44,7 @@ const body = [
     imageRender(
       "https://w7.pngwing.com/pngs/102/952/png-transparent-pettah-thiruvananthapuram-delhivery-courier-logo-organization-d-miscellaneous-angle-company.png"
     ),
+    "DELHIVERY",
     "Air",
     "3 days",
     "3 days",
@@ -48,11 +53,13 @@ const body = [
 ];
 const head = [
   { id: "company", label: "Company" },
+  { id: "companyName", label: "Company Name" },
   { id: "product", label: "Product" },
   { id: "promisedTAT", label: "Promised TAT" },
   { id: "pastTAT", label: "Past TAT" },
   { id: "rate", label: "Rate" },
 ];
+
 const useStyles = makeStyles({
   root: {
     display: "flex",
@@ -67,9 +74,20 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
 });
-const CompanySelection = ({ handleSubmit, values, prevStep, submitting }) => {
+const CompanySelection = ({
+  handleSubmit,
+  values,
+  prevStep,
+  submitting,
+  errors,
+}) => {
+  const [companyName, setCompanyName] = useState("");
   const classes = useStyles();
-  console.log(values);
+  const selectHandler = ({ companyName }) => {
+    console.log(companyName);
+    setCompanyName(companyName);
+    values["company"] = companyName;
+  };
   return (
     <form onSubmit={handleSubmit}>
       <Paper className={classes.root}>
@@ -81,7 +99,10 @@ const CompanySelection = ({ handleSubmit, values, prevStep, submitting }) => {
 
           <Grid md={6} item className="filledDetails">
             <Paper style={{ padding: 16 }}>
-              <Typography variant="h5">
+              <Typography
+                variant="h5"
+                style={{ textDecoration: "underline", margin: "20px" }}
+              >
                 Confirm your details one more time
               </Typography>
               <Grid spacing={2}>
@@ -93,12 +114,19 @@ const CompanySelection = ({ handleSubmit, values, prevStep, submitting }) => {
                       </Typography>
                     </Grid>
                   ))}
+                {/* { <Grid xs={12} item>
+                  <Typography>COMPANY : {companyName}</Typography>
+                </Grid>} */}
               </Grid>
             </Paper>
           </Grid>
           <Grid item md={6} className="filledDetails">
             <Paper>
-              <CustomizedTable headItems={head} bodyItems={body} />
+              <CustomizedTable
+                headItems={head}
+                select={selectHandler}
+                bodyItems={body}
+              />
             </Paper>
           </Grid>
 
@@ -117,7 +145,13 @@ const CompanySelection = ({ handleSubmit, values, prevStep, submitting }) => {
               variant="contained"
               type="submit"
               color="secondary"
-              disabled={submitting}
+              disabled={
+                submitting ||
+                !(
+                  Object.keys(errors).length === 0 &&
+                  errors.constructor === Object
+                )
+              }
             >
               Submit
             </Button>

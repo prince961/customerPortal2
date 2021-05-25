@@ -1,5 +1,5 @@
 import { authConstant } from "./constants";
-import authApi from "../apis/auth";
+import authApi from "../apis/api";
 import history from "../util/history";
 
 export const login = (formValues) => async (dispatch) => {

@@ -27,7 +27,6 @@ const FormProductDetails = ({ nextStep, prevStep, submitting }) => {
             component={TextField}
             label="Product Description"
             rows={4}
-            required
           />
         </Grid>
         <Grid item sm={6} md={4}>
@@ -37,7 +36,6 @@ const FormProductDetails = ({ nextStep, prevStep, submitting }) => {
             variant="outlined"
             component={TextField}
             label="Product Category"
-            required
           />
         </Grid>
         <Grid item sm={6} md={4}>
@@ -47,7 +45,6 @@ const FormProductDetails = ({ nextStep, prevStep, submitting }) => {
             variant="outlined"
             component={TextField}
             label="HSN Code"
-            required
           />
         </Grid>
 

@@ -4,12 +4,22 @@ import {
   Grid,
   Paper,
   Typography,
+  Switch,
+  FormGroup,
+  FormControlLabel,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Field } from "react-final-form";
 import { TextField } from "final-form-material-ui";
 import pincodeApi from "../../apis/pincode";
-const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
+const FormConsigneeDetails = ({
+  nextStep,
+  prevStep,
+  submitting,
+  values,
+  pristine,
+}) => {
+  const [checkedA, setCheckedA] = useState(true);
   const [city, setCity] = useState(!values.pickupCity ? "" : values.pickupCity);
   const [state, setState] = useState(
     !values.pickupState ? "" : values.pickupState
@@ -36,6 +46,9 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
           values.pickupPincode = response.data.body[0].id;
           values.pickupCity = response.data.body[0].CITY;
           values.pickupState = response.data.body[0].STATE;
+          values.returnPincode = response.data.body[0].id;
+          values.returnCity = response.data.body[0].CITY;
+          values.returnState = response.data.body[0].STATE;
         } else {
           setRcity(response.data.body[0].CITY);
           setRstate(response.data.body[0].STATE);
@@ -51,11 +64,27 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
+      case `pickupAddress`:
+        values.pickupAddress = value;
+        values.returnAddress = value;
+        break;
+      case `pickupPincode`:
+        values.pickupPincode = value;
+
+        values.returnPincode = value;
+        break;
       case `pickupCity`:
         setCity(value);
+        setRcity(value);
+        values.pickupCity = value;
+        values.returnCity = value;
+
         break;
       case `pickupState`:
         setState(value);
+        setRstate(value);
+        values.returnState = value;
+        values.pickupState = value;
         break;
       case `returnCity`:
         setRcity(value);
@@ -77,18 +106,17 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
   return (
     <Paper style={{ padding: 16 }}>
       <Grid spacing={4} container justfy="center" alignItems="center">
-        <Typography variant="h5">Pickup</Typography>
+        <Typography variant="h5">Pickup Address</Typography>
         <Grid item xs={12}>
-          <Field
+          <TF
             fullWidth
             multiline
             name="pickupAddress"
             type="text"
             variant="outlined"
-            component={TextField}
             label="Pickup Address"
             rows={5}
-            required
+            onChange={handleChange}
           />
         </Grid>
         <Grid item sm={6} md={4}>
@@ -124,61 +152,77 @@ const FormConsigneeDetails = ({ nextStep, prevStep, submitting, values }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h5">Return</Typography>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={checkedA}
+                  onChange={() => setCheckedA(!checkedA)}
+                  name="checkedA"
+                  inputProps={{ "aria-label": "secondary checkbox" }}
+                />
+              }
+              label="Return Address Same As Pickup Address"
+            />
+          </FormGroup>
         </Grid>
-        <Grid item xs={12}>
-          <Field
-            fullWidth
-            multiline
-            name="returnAddress"
-            type="text"
-            variant="outlined"
-            component={TextField}
-            label="Return Address"
-            rows={5}
-            required
-          />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <TF
-            name="returnPincode"
-            fullWidth
-            variant="outlined"
-            label="Return Pincode"
-            required
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <TF
-            name="returnCity"
-            fullWidth
-            variant="outlined"
-            label="Return City"
-            required
-            value={rCity}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <TF
-            name="returnState"
-            fullWidth
-            variant="outlined"
-            label="Return State"
-            required
-            value={rState}
-            onChange={handleChange}
-          />
-        </Grid>
+        {!checkedA && (
+          <>
+            <Grid item xs={12}>
+              <Typography variant="h5">Return Address</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Field
+                fullWidth
+                multiline
+                defaultValue={values.pickupAddress}
+                name="returnAddress"
+                type="text"
+                variant="outlined"
+                component={TextField}
+                label="Return Address"
+                rows={5}
+                required
+              />
+            </Grid>
+            <Grid item sm={6} md={4}>
+              <TF
+                name="returnPincode"
+                fullWidth
+                variant="outlined"
+                label="Return Pincode"
+                required
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item sm={6} md={4}>
+              <TF
+                name="returnCity"
+                fullWidth
+                defaultValue={values.pickupCity}
+                variant="outlined"
+                label="Return City"
+                required
+                value={rCity}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item sm={6} md={4}>
+              <TF
+                name="returnState"
+                fullWidth
+                defaultValue={values.pickupCity}
+                variant="outlined"
+                label="Return State"
+                required
+                value={rState}
+                onChange={handleChange}
+              />
+            </Grid>
+          </>
+        )}
 
-        <Grid
-          item
-          xs={12}
-          //   style={{
-          //     marginTop: 16,
-          //   }}
-        >
+        <Grid item xs={12}>
           <Button
             style={{ margin: 10 }}
             variant="contained"

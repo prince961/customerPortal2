@@ -8,9 +8,14 @@ import {
 import React, { useState } from "react";
 import { Field } from "react-final-form";
 import { TextField } from "final-form-material-ui";
-import CustomizedTextField from "../../components/CustomizedTextField/CustomizedTextField";
 
-const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
+const FormOrderDetails = ({
+  submitting,
+  nextStep,
+  pristine,
+  prevStep,
+  values,
+}) => {
   console.log(values);
   const [commudity, setCommudity] = useState(
     values.commudityValue ? values.commudityValue : ""
@@ -38,11 +43,13 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
   };
   const setTatxes = (value) => {
     setTax(value * 0.18);
-    setCodAmt(value * 1.18);
     setTotal(value * 1.18);
     values.tax = value * 0.18;
-    values.codAmt = value * 1.18;
     values.total = value * 1.18;
+    if (values.paymentMode === "cod") {
+      setCodAmt(value * 1.18);
+      values.codAmt = value * 1.18;
+    }
   };
   return (
     <Paper style={{ padding: 16 }}>
@@ -60,11 +67,11 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
             variant="outlined"
             component={TextField}
             label="Reference Number"
-            required
           />
         </Grid>
         <Grid item xs={12} sm={4}>
           <Field
+            defaultValue={1}
             name="items"
             type="number"
             fullWidth
@@ -82,7 +89,6 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
             variant="outlined"
             component={TextField}
             label="Weight (gms)"
-            required
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -92,8 +98,7 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
             fullWidth
             variant="outlined"
             onChange={handleChange}
-            label="Commudity Value"
-            required
+            label="Commudity"
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -105,21 +110,9 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
             label="Tax"
             value={tax}
             onChange={handleChange}
-            required
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <TF
-            name="codAmt"
-            type="number"
-            fullWidth
-            variant="outlined"
-            label="COD Amount"
-            value={codAmt}
-            onChange={handleChange}
-            required
-          />
-        </Grid>
+
         <Grid item xs={12} sm={3}>
           <TF
             name="total"
@@ -129,12 +122,25 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
             value={total}
             onChange={handleChange}
             label="Total Value"
-            required
           />
         </Grid>
+        {values.paymentMode === "cod" && (
+          <Grid item xs={12} sm={3}>
+            <TF
+              name="codAmt"
+              type="number"
+              fullWidth
+              variant="outlined"
+              label="COD Amount"
+              value={codAmt}
+              onChange={handleChange}
+            />
+          </Grid>
+        )}
 
-        <Grid item style={{ marginTop: 16 }}>
+        <Grid item xs={12}>
           <Button
+            style={{ margin: 10 }}
             variant="contained"
             color="primary"
             onClick={prevStep}
@@ -142,13 +148,13 @@ const FormOrderDetails = ({ submitting, nextStep, form, prevStep, values }) => {
           >
             Back
           </Button>
-        </Grid>
-        <Grid item style={{ marginTop: 16 }}>
+
           <Button
+            style={{ margin: "0 10" }}
             variant="contained"
             color="secondary"
             onClick={nextStep}
-            disabled={submitting}
+            disabled={submitting || pristine}
           >
             Next
           </Button>
