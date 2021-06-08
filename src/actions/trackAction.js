@@ -1,10 +1,10 @@
-import trackApi from "../apis/track";
+import Api from "../apis/api";
 import { trackConstant } from "./constants";
 export const trackOrder = (formValues) => async (dispatch) => {
   dispatch({ type: `${trackConstant.TRACK_ORDER}_REQUEST` });
   try {
     const { waybill } = formValues;
-    const response = await trackApi.get(`/track`, {
+    const response = await Api.get(`/track`, {
       params: { waybill: waybill },
     });
     if (response.data.data.Error) {

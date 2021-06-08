@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { TextField } from "final-form-material-ui";
-import React, { useState } from "react";
+import React from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { rateCalculate } from "../../actions/rateAction";
